@@ -10,7 +10,7 @@ export default async function handler (
   const externalId = `meeting-${Date.now()}-${Math.random().toString(36).slice(2)}`
 
   // create recall.ai bot
-  const botResp = await fetch('https://us-east-1.recall.ai/api/v1/bot', {
+  const botResp = await fetch('https://us-west-2.recall.ai/api/v1/bot', {
     method : 'POST',
     headers: {
       authorization : process.env.RECALL_API_KEY ?? '',
@@ -21,7 +21,7 @@ export default async function handler (
       external_id : externalId,
       metadata    : { external_id: externalId },
 
-      webhook_url : 'https://open-many-ibex.ngrok-free.app/api/webhook',
+      webhook_url : 'https://deedra-serried-unappealably.ngrok-free.dev/api/webhook',
 
       recording_config: {
         // finished artifacts I want rendered
@@ -36,7 +36,7 @@ export default async function handler (
         realtime_endpoints: [
           {
             type : 'webhook',
-            url  : 'https://open-many-ibex.ngrok-free.app/api/webhook',
+            url  : 'https://deedra-serried-unappealably.ngrok-free.dev/api/webhook',
             events: ['transcript.data', 'transcript.partial_data']
           }
         ]
@@ -45,7 +45,7 @@ export default async function handler (
   })
 
   const bot = await botResp.json()
-  console.log('bot created →', bot.id); 
+  console.log('bot created →', bot); 
   
   await prisma.meeting.create({
     data:{ userId, meetingUrl: zoomLink, externalId, botId: bot.id }

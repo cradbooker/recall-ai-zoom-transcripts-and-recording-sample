@@ -1,5 +1,5 @@
 // lib/recall-media.ts
-const BASE = 'https://us-east-1.recall.ai/api/v1'
+const BASE = 'https://us-west-2.recall.ai/api/v1'
 const HEADERS = {
   Authorization: process.env.RECALL_API_KEY ?? '',
   Accept: 'application/json',
